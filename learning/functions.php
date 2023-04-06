@@ -2,6 +2,12 @@
 function sayHello(){
     echo "Hello World!";
 }
+function plus(int $a, int $b): int
+{
+    return $a+$b;
+}
 
-sayHello();
-?>
+
+echo plus(1, 1);
+
+
