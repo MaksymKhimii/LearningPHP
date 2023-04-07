@@ -1,21 +1,50 @@
 <?php
-if(isset($_POST['submit'])){
+global $connection;
+include "db.php";
+if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-  //  echo 'Username: '.$username .'<br>Password:  '. $password;
+    //  echo 'Username: '.$username .'<br>Password:  '. $password;
 
-    $connection = pg_connect("host=localhost port=5432 dbname=php_learning user=postgres password=1408");
-    if($connection){
-        echo "Connected";
-    }
+    /*    if($connection){
+            echo "Connected";
+        }*/
+
+    /*   $queryInsert = "INSERT INTO users(username, password) VALUES ('$username', '$password')";
+       $result = pg_query($connection, $query);
+       if(!$result){
+           die("query failed");
+       }*/
+
+    /*  $querySelect = "SELECT * FROM users;";
+      $result = pg_query($connection, $querySelect);*/
 
 
+    /*while ($row = pg_fetch_assoc($result)) {
+        print_r($row);
+        echo "<br>";
+    }*/
 
+    /*    $queryUpdate = "UPDATE users SET username = '$username', password = '$password' WHERE id = 1;";
+
+        $result = pg_query($connection, $queryUpdate);
+        if(!$result){
+            die("query failed");
+        }
+    */
+    deleteRow();
 }
 
+function deleteRow()
+{
+    global $connection;
+    $query = "DELETE FROM users WHERE id=1";
+    $result = pg_query($connection, $query);
+    if (!$result) {
+        die("query failed");
+    }
+}
 ?>
-
-
 
 
 <!doctype html>
@@ -29,7 +58,7 @@ if(isset($_POST['submit'])){
 <body>
 
 <div class="container">
-    <dix class="col-sm-6">
+    <div class="col-sm-6">
         <form action="login.php" method="post">
             <label for="username">Username</label>
             <div class="form-group">
@@ -41,8 +70,7 @@ if(isset($_POST['submit'])){
             </div>
             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
         </form>
-        </form>
-    </dix>
+    </div>
 </div>
 </body>
 </html>
