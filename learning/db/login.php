@@ -1,20 +1,31 @@
 <?php
-global $connection;
 include "db.php";
+global $connection;
+
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
+
+    $username = pg_escape_string($connection, $username);
+    $password = pg_escape_string($connection, $password);
+
+    $hashFormat = "$2y$10$";
+
+    $salt = "iusesomecrazystrings22";
+
+    $hashAndSalt = $hashFormat . $salt;
+    $password = crypt($password, $hashAndSalt);
     //  echo 'Username: '.$username .'<br>Password:  '. $password;
 
     /*    if($connection){
             echo "Connected";
         }*/
 
-    /*   $queryInsert = "INSERT INTO users(username, password) VALUES ('$username', '$password')";
-       $result = pg_query($connection, $query);
+       $queryInsert = "INSERT INTO users(username, password) VALUES ('$username', '$password')";
+       $result = pg_query($connection, $queryInsert);
        if(!$result){
            die("query failed");
-       }*/
+       }
 
     /*  $querySelect = "SELECT * FROM users;";
       $result = pg_query($connection, $querySelect);*/
@@ -32,10 +43,10 @@ if (isset($_POST['submit'])) {
             die("query failed");
         }
     */
-    deleteRow();
+  /*  deleteRow();*/
 }
 
-function deleteRow()
+/*function deleteRow()
 {
     global $connection;
     $query = "DELETE FROM users WHERE id=1";
@@ -43,7 +54,7 @@ function deleteRow()
     if (!$result) {
         die("query failed");
     }
-}
+}*/
 ?>
 
 
